@@ -9,7 +9,7 @@ const Formulario = () => {
         categoria:""
     });
    const {categoria} = useContext(CategoriaContext);
-   const {setBusquedaRecetas, setConsultas} = useContext(RecetasContext);
+   const {Recetas,setBusquedaRecetas, setConsultas} = useContext(RecetasContext);
 
    const obtenerDatosReceta = e => {
     setBusqueda({

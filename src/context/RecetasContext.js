@@ -19,8 +19,11 @@ const RecetasProvider = (props) =>{
                 const Recetas = await axios.get(url);
                 
                 setRecetas(Recetas.data.drinks);
+                
             }
-          obtenerRecetaDesdeApi();
+        
+            obtenerRecetaDesdeApi();
+
         }
         
     },[busqueda]);
