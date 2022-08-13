@@ -28,7 +28,21 @@ const Receta = ({receta}) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const {setIdReceta} = useContext(ModalContext);
+    const {informacion,setIdReceta,setInformacion} = useContext(ModalContext);
+
+    // mostrar y firmatea los ingredientes 
+
+    const mostrarIngredientes = informacion => {
+        let ingredientes = [];
+        for(let i= 1; i<16; i++){
+            if(informacion[`strIngredient${i}`]){
+                ingredientes.push(
+                    <li> { informacion[`strIngredient${i}`] }  { informacion[`strMeasure${i}`] }</li>
+                )
+            }
+        }
+        return ingredientes;
+    }
 
     return (  
         <div className="col-md-4 mb-3">
@@ -41,6 +55,7 @@ const Receta = ({receta}) => {
                         className="btn btn-block btn-primary"
                         onClick={() => {
                             setIdReceta(receta.idDrink);
+                            setInformacion({});
                             handleOpen();
                         }}
                     >
@@ -48,16 +63,27 @@ const Receta = ({receta}) => {
                     </button>
                     <Modal
                         open={open}
-                        onClose={handleClose}
+                        onClose={() => {
+                            setIdReceta(null);
+                            handleClose();
+                        }}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={style}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Text in a modal
+                            <h2>{informacion.strDrink}</h2>
+                            <h3 className="mt-4">Instrucciones</h3>
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                            <p>
+                                {informacion.strInstructions}
+                            </p>
+                            <img className="img-fluid my-4" src={informacion.strDrinkThumb} />
+                            <h3> Ingredientes y cantidades</h3>
+                            <ul>
+                                {mostrarIngredientes(informacion)}
+                            </ul>
                         </Typography>
                         </Box>
                 </Modal>

@@ -8,7 +8,7 @@ const ModalProvider = (props) => {
     // state del provider
 
     const [idReceta, setIdReceta] = useState(null);
-    const [receta , setReceta] = useState({});
+    const [informacion , setInformacion] = useState({});
 
     // una vez tenemso una receta, se llama la api 
 
@@ -17,7 +17,7 @@ const ModalProvider = (props) => {
             if(!idReceta) return;
             const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idReceta}`;
             const resultado = await axios.get(url);
-            setReceta(resultado.data.drinks[0]);
+            setInformacion(resultado.data.drinks[0]);
             
         }
         ontenerReceta();
@@ -26,8 +26,9 @@ const ModalProvider = (props) => {
     return (  
         <ModalContext.Provider
             value={{
+                informacion,
                 setIdReceta,
-                receta
+                setInformacion
             }}
         
         >
